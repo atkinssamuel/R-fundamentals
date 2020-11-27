@@ -81,6 +81,24 @@ length(number_list) > 4
 length(my_apples) > 1
 ```
 
+## Vector Operations
+- All mathematical operations are performed element-wise
+```R
+earnings = c(5, 10, 3)
+earnings - 20 # -15 -10 -17
+earnings + 100 # 105 110 103
+earnings * 3 # 15 30 9
+```
+
+- Multiplying/dividing vectors is also done element-wise. This is different than in numpy, for example, where multiplying two vectors results in a matrix of their product
+
+```R
+earnings = c(50, 100, 30)
+expenses = c(30, 40, 80)
+earnings - expenses # 20 60 -50
+earnings * c(1, 2, 3) # 50 200 90
+```
+
 ## Matrix Declaration
 ```R
 number_matrix = matrix(1:6, nrow=2, ncol=3) # ncol optional
@@ -101,6 +119,12 @@ If we wish to specify the row names and column names in the declaration we can d
 ```R
 number_matrix = matrix(1:6, nrow=2, byrow=TRUE, dimnames=list(c("row1", "row2"), c("col1", "col2", "col3")))
 ```
+
+If we wish to define a matrix with custom elements we can do so using cbind/rbind:
+```R
+matrix = cbind(c(1, 2, 3), c(4, 5, 6))
+```
+
 ## Matrix Indexing
 *Single element:*
 ```R
@@ -160,3 +184,53 @@ rownames(number_matrix) = c("row_1", "row_2")
 colnames(number_matrix) = c("col_1", "col_2", "col_3")
 ```
 
+## Matrix Math
+### Matrix - Scalar
+```R
+matrix = cbind(c(50, 80, 100), c(50, 80, 100))
+matrix * 10 # multiplies element-wise
+
+```
+
+# R DataFrames
+## Creating DataFrames
+```R
+name = c("Anne", "Pete", "Frank", "Julia", "Cath")
+age = c(28, 30, 21, 39, 35)
+child = c(F, T, T, F, T)
+people = data.frame(name, age, child, stringsAsFactors=FALSE)
+```
+
+## DataFrame Subsetting
+```R
+people[3, 2]
+people[3, "age"] # also works
+people[3, ] # returns a data frame with a single observation
+people[, "age"] # returns a vector with all of the data in the "age" column
+people["age"] # returns a dataframe with all of the values in the "age" column
+people[2] # returns a dataframe with all of the values in the 2nd column
+```
+
+## Adding DataFrame Rows/Columns
+```R
+# can use cbind:
+weight = c(74, 63, 68, 55, 56)
+cbind(people, weight)
+# can also use:
+people[["height"]] = c(162, 177, 163, 162, 157)
+# to add rows we can use rbind:
+tom = data.frame(name="Tom", age=37, child=FALSE, height=183) # create new row element by defining a new data frame with just one element
+rbind(people, tom)
+```
+
+## Sorting a DataFrame
+```R
+ranks = order(people[, "age"])
+people[, ranks]
+
+# 3 Frank 31 TRUE 163
+# 1 Anne 28 FALSE 163
+# 2 Pete 30 TRUE 177
+# 5 Cath 35 TRUE 157
+# 4 Julia 39 FALSE 162
+```

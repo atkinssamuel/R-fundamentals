@@ -50,11 +50,3 @@ pipe_prac <- companies %>%
 # add and show a new column called "thousands" that multiplies the "ch" column 
 # by 1000
 select(mutate(companies, thousands=ch*1000), thousands)
-
-
-########################### Lecture 5: #########################################
-
-
-########################### Lecture 6: #########################################
-
-########################### Lecture 7: #########################################
